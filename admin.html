@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- ============================================================
+       CHATHUTOPUP — admin.html
+       Admin Dashboard: order stats, order management, package pricing.
+       ⚠ DEMO ONLY: the login below is a client-side placeholder.
+       PRODUCTION: enforce authentication on the SERVER (session/JWT,
+       hashed passwords, HTTPS, role-based access). Never secure admin
+       with frontend-only code.
+       ============================================================ -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="robots" content="noindex" />
+  <title>Admin Dashboard | ChathuTopup</title>
+  <link rel="stylesheet" href="styles.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <style>
+    /* Admin-only additions */
+    .admin-wrap { max-width: 1100px; margin: 0 auto; padding: 110px 5vw 60px; }
+    .login-box { max-width: 420px; margin: 12vh auto 0; }
+    .stat-grid { display: grid; gap: 20px; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); margin-bottom: 40px; }
+    .stat-card { padding: 24px; border-radius: var(--radius); background: var(--card); border: 1px solid var(--border); text-align: center; }
+    .stat-card strong { display: block; font-family: var(--font-head); font-size: 2rem; color: var(--orange-hot); }
+    .stat-card span { color: var(--muted); text-transform: uppercase; letter-spacing: 1px; font-size: .8rem; }
+    .admin-table { width: 100%; border-collapse: collapse; margin-top: 16px; }
+    .admin-table th, .admin-table td { padding: 12px 14px; text-align: left; border-bottom: 1px solid var(--border); font-size: .95rem; }
+    .admin-table th { font-family: var(--font-head); font-size: .75rem; letter-spacing: 1px; color: var(--blue); }
+    .admin-table tr:hover td { background: rgba(123,47,247,.08); }
+    .admin-table select, .pkg-price-input {
+      padding: 7px 10px; border-radius: 8px; background: rgba(0,0,0,.4);
+      border: 1px solid var(--border); color: var(--text); font-family: var(--font-body);
+    }
+    .admin-panel { padding: 28px; margin-bottom: 36px; background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); overflow-x: auto; }
+    .admin-panel h2 { font-size: 1.1rem; margin-bottom: 8px; }
+    .admin-back { display: inline-block; margin-bottom: 24px; color: var(--blue); font-weight: 700; }
+    .pkg-row { display: flex; gap: 12px; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(168,85,247,.12); flex-wrap: wrap; }
+    .pkg-row strong { min-width: 130px; }
+    @media (max-width: 720px) { .admin-table { font-size: .8rem; } }
+  </style>
+</head>
+<body>
+  <div id="loader"><div class="loader-diamond"></div><p>CHATHUTOPUP ADMIN</p></div>
+
+  <!-- ===== DEMO LOGIN GATE (replace with real server auth!) ===== -->
+  <div class="admin-wrap" id="loginView">
+    <form class="order-form login-box" id="loginForm">
+      <h2 class="section-title" style="font-size:1.3rem">ADMIN <span class="grad-text">LOGIN</span></h2>
+      <p class="muted" style="text-align:center;margin-bottom:20px">Demo password: <code>admin123</code> — replace with server-side auth.</p>
+      <div class="field">
+        <label for="adminUser">Username</label>
+        <input type="text" id="adminUser" required autocomplete="username" />
+      </div>
+      <div class="field" style="margin-top:14px">
+        <label for="adminPass">Password</label>
+        <input type="password" id="adminPass" required autocomplete="current-password" />
+        <small class="error-msg" id="loginErr"></small>
+      </div>
+      <button class="btn btn-primary btn-block" type="submit">LOGIN</button>
+    </form>
+  </div>
+
+  <!-- ===== DASHBOARD ===== -->
+  <div class="admin-wrap hidden" id="dashboard">
+    <a class="admin-back" href="index.html">← Back to Store</a>
+    <h1 class="section-title" style="text-align:left">DASH<span class="grad-text">BOARD</span></h1>
+
+    <!-- Stats -->
+    <div class="stat-grid" id="statGrid">
+      <div class="stat-card"><strong id="stTotal">0</strong><span>Total Orders</span></div>
+      <div class="stat-card"><strong id="stPending">0</strong><span>Pending</span></div>
+      <div class="stat-card"><strong id="stProcessing">0</strong><span>Processing</span></div>
+      <div class="stat-card"><strong id="stCompleted">0</strong><span>Completed</span></div>
+    </div>
+
+    <!-- Order management -->
+    <div class="admin-panel">
+      <h2>ORDER MANAGEMENT</h2>
+      <p class="muted">Update any order's status — customers see it instantly on the tracking page.</p>
+      <table class="admin-table">
+        <thead>
+          <tr><th>Order ID</th><th>Customer</th><th>Player ID</th><th>Package</th><th>Total</th><th>Pay Ref</th><th>Status</th></tr>
+        </thead>
+        <tbody id="ordersBody"></tbody>
+      </table>
+      <p class="muted" id="noOrders" style="margin-top:14px">No orders yet — place a test order from the store page.</p>
+    </div>
+
+    <!-- Package management -->
+    <div class="admin-panel">
+      <h2>PACKAGES &amp; PRICING</h2>
+      <p class="muted">Edit prices (LKR) and toggle the "Popular" highlight, then save.</p>
+      <div id="pkgEditor"></div>
+      <button class="btn btn-primary btn-block" id="savePackages">SAVE PACKAGES</button>
+    </div>
+
+    <button class="btn btn-ghost" id="logoutBtn">LOGOUT</button>
+  </div>
+
+  <script src="admin.js"></script>
+</body>
+</html>

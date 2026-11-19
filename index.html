@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- ============================================================
+       CHATHUTOPUP — Free Fire Diamond Top-Up Store
+       File : index.html  (Homepage + Order + Payment + Tracking + FAQ)
+       Tech : HTML5 / CSS3 / Vanilla JavaScript
+       NOTE : This is the frontend. Real orders, auth & payments
+              must run on a secure backend (see comments in script.js
+              and payment section below).
+       ============================================================ -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="ChathuTopup — Fast, Easy & Reliable Free Fire Diamond Top-Up in Sri Lanka." />
+  <title>ChathuTopup | Free Fire Diamond Top-Up Store</title>
+  <link rel="stylesheet" href="styles.css" />
+  <!-- Gaming font pairing: Orbitron (headings) + Rajdhani (body) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;800;900&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- ==================== LOADING SCREEN ==================== -->
+  <div id="loader" aria-hidden="true">
+    <div class="loader-diamond"></div>
+    <p>CHATHUTOPUP</p>
+  </div>
+
+  <!-- ==================== NAVBAR ==================== -->
+  <header class="navbar" id="navbar">
+    <!-- Custom inline-SVG logo: stylized "C" bolt + diamond -->
+    <a href="#home" class="brand" aria-label="ChathuTopup home">
+      <svg class="logo-mark" viewBox="0 0 64 64" aria-hidden="true">
+        <defs>
+          <linearGradient id="lg" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#00e5ff"/><stop offset=".5" stop-color="#a855f7"/><stop offset="1" stop-color="#ff7a00"/>
+          </linearGradient>
+        </defs>
+        <path d="M32 4 8 26l24 34 24-34L32 4z" fill="none" stroke="url(#lg)" stroke-width="4" stroke-linejoin="round"/>
+        <path d="M20 26l12 16 12-16" fill="none" stroke="url(#lg)" stroke-width="4" stroke-linejoin="round"/>
+      </svg>
+      <span class="brand-name">CHATHU<em>TOPUP</em></span>
+    </a>
+
+    <nav class="nav-links" id="navLinks" aria-label="Main navigation">
+      <a href="#home">Home</a>
+      <a href="#packages">Packages</a>
+      <a href="#order">Top Up</a>
+      <a href="#track">Track Order</a>
+      <a href="#faq">FAQ</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <a href="admin.html" class="nav-admin">Admin</a>
+    </nav>
+
+    <!-- Hamburger for mobile -->
+    <button class="hamburger" id="hamburger" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </header>
+
+  <!-- ==================== HERO ==================== -->
+  <section class="hero" id="home">
+    <!-- Animated neon grid + glow orbs (pure CSS, fast-loading) -->
+    <div class="hero-bg"></div>
+    <div class="hero-content reveal">
+      <p class="hero-tag">#1 TRUSTED TOP-UP STORE IN SRI LANKA</p>
+      <h1>WELCOME TO <span class="grad-text">CHATHUTOPUP</span></h1>
+      <p class="hero-sub">Fast, Easy &amp; Reliable Diamond Top-Up</p>
+      <div class="hero-btns">
+        <a href="#order" class="btn btn-primary">TOP UP NOW</a>
+        <a href="#packages" class="btn btn-ghost">VIEW PACKAGES</a>
+      </div>
+      <div class="hero-stats">
+        <div><strong data-count="12000">0</strong><span>Orders Done</span></div>
+        <div><strong data-count="4800">0</strong><span>Happy Players</span></div>
+        <div><strong data-count="99">0</strong><span>% Success Rate</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== DIAMOND PACKAGES ==================== -->
+  <section class="section" id="packages">
+    <h2 class="section-title reveal">DIAMOND <span class="grad-text">PACKAGES</span></h2>
+    <p class="section-sub reveal">Choose your package — top-up lands in minutes.</p>
+
+    <!-- Cards are rendered from JS (data-driven => easy price management) -->
+    <div class="package-grid" id="packageGrid"></div>
+  </section>
+
+  <!-- ==================== SPECIAL OFFERS ==================== -->
+  <section class="section offers-section">
+    <h2 class="section-title reveal">SPECIAL <span class="grad-text">OFFERS</span></h2>
+    <div class="offers-grid">
+      <div class="offer-card reveal">
+        <span class="offer-badge">HOT</span>
+        <h3>Weekly Bonus Pack</h3>
+        <p>100 Diamonds + Bonus 10 Diamonds every Friday.</p>
+        <a href="#order" class="btn btn-small" data-package="100">GRAB IT</a>
+      </div>
+      <div class="offer-card reveal">
+        <span class="offer-badge">SALE</span>
+        <h3>Level-Up Bundle</h3>
+        <p>530 Diamonds with a chance of free Evolve MP40 skin.</p>
+        <a href="#order" class="btn btn-small" data-package="530">GRAB IT</a>
+      </div>
+      <div class="offer-card reveal">
+        <span class="offer-badge">MEGA</span>
+        <h3>Squad Mega Deal</h3>
+        <p>2200 Diamonds + VIP priority delivery in 5 minutes.</p>
+        <a href="#order" class="btn btn-small" data-package="2200">GRAB IT</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== WHY CHOOSE US ==================== -->
+  <section class="section">
+    <h2 class="section-title reveal">WHY CHOOSE <span class="grad-text">CHATHUTOPUP</span></h2>
+    <div class="features-grid">
+      <div class="feature reveal"><span class="feature-icon">⚡</span><h3>Instant Delivery</h3><p>Most orders completed within 5–15 minutes.</p></div>
+      <div class="feature reveal"><span class="feature-icon">🛡️</span><h3>100% Safe</h3><p>Official top-up method. No login needed — only Player ID.</p></div>
+      <div class="feature reveal"><span class="feature-icon">💬</span><h3>24/7 Support</h3><p>Real humans on WhatsApp, day and night.</p></div>
+      <div class="feature reveal"><span class="feature-icon">💰</span><h3>Best Prices</h3><p>Cheapest LKR rates with weekly discounts.</p></div>
+    </div>
+  </section>
+
+  <!-- ==================== ORDER SYSTEM ==================== -->
+  <section class="section order-section" id="order">
+    <h2 class="section-title reveal">TOP UP <span class="grad-text">NOW</span></h2>
+    <p class="section-sub reveal">Fill in your details — we'll do the rest.</p>
+
+    <form class="order-form reveal" id="orderForm" novalidate>
+      <div class="form-grid">
+        <div class="field">
+          <label for="playerId">Free Fire Player ID *</label>
+          <input type="text" id="playerId" placeholder="e.g. 512345678" maxlength="12" required />
+          <small class="error-msg"></small>
+        </div>
+        <div class="field">
+          <label for="server">Server / Region *</label>
+          <select id="server" required>
+            <option value="">-- Select server --</option>
+            <option value="Asia">Asia</option>
+            <option value="MENA">MENA</option>
+            <option value="Europe">Europe</option>
+            <option value="Americas">Americas</option>
+            <option value="IND">India</option>
+          </select>
+          <small class="error-msg"></small>
+        </div>
+        <div class="field">
+          <label for="customerName">Your Name *</label>
+          <input type="text" id="customerName" placeholder="Full name" required />
+          <small class="error-msg"></small>
+        </div>
+        <div class="field">
+          <label for="phone">Contact Number *</label>
+          <input type="tel" id="phone" placeholder="07X XXX XXXX" required />
+          <small class="error-msg"></small>
+        </div>
+        <div class="field field-wide">
+          <label for="packageSelect">Diamond Package *</label>
+          <select id="packageSelect" required>
+            <option value="">-- Choose a package --</option>
+          </select>
+          <small class="error-msg"></small>
+        </div>
+      </div>
+
+      <!-- Live order summary (updates via JS) -->
+      <div class="order-summary" id="orderSummary" aria-live="polite">
+        <h3>ORDER SUMMARY</h3>
+        <div class="summary-row"><span>Package</span><span id="sumPackage">—</span></div>
+        <div class="summary-row"><span>Server</span><span id="sumServer">—</span></div>
+        <div class="summary-row total"><span>Total</span><span id="sumTotal">LKR 0</span></div>
+      </div>
+
+      <button type="submit" class="btn btn-primary btn-block">CONFIRM ORDER</button>
+    </form>
+
+    <!-- Shown after confirm: payment instructions + receipt upload -->
+    <div class="payment-box hidden" id="paymentBox">
+      <h3>PAYMENT — BANK TRANSFER</h3>
+      <ol class="payment-steps">
+        <li>Transfer the <strong>exact total</strong> to:<br>
+          <code>Bank of Ceylon • ChathuTopup (Pvt) Ltd<br>Acct: 1234 5678 9012</code></li>
+        <li>Enter your bank reference number below.</li>
+        <li>Attach a photo/screenshot of the receipt (optional but faster).</li>
+      </ol>
+
+      <div class="form-grid">
+        <div class="field">
+          <label for="payRef">Payment Reference *</label>
+          <input type="text" id="payRef" placeholder="Bank transfer reference no." />
+          <small class="error-msg"></small>
+        </div>
+        <div class="field">
+          <label for="receipt">Upload Receipt</label>
+          <input type="file" id="receipt" accept="image/*,.pdf" />
+        </div>
+      </div>
+      <button class="btn btn-primary btn-block" id="submitPayment">SUBMIT PAYMENT &amp; PLACE ORDER</button>
+      <p class="secure-note">🔒 Card payments will be processed through a PCI-DSS certified gateway (ePay / WebXPay). We <strong>never</strong> ask for card PINs, passwords or OTPs.</p>
+    </div>
+  </section>
+
+  <!-- ==================== ORDER TRACKING ==================== -->
+  <section class="section track-section" id="track">
+    <h2 class="section-title reveal">TRACK YOUR <span class="grad-text">ORDER</span></h2>
+    <div class="track-box reveal">
+      <input type="text" id="trackInput" placeholder="Enter your Order ID (e.g. CT-XXXXXX)" />
+      <button class="btn btn-primary" id="trackBtn">CHECK STATUS</button>
+      <div class="track-result hidden" id="trackResult" aria-live="polite"></div>
+    </div>
+  </section>
+
+  <!-- ==================== REVIEWS ==================== -->
+  <section class="section">
+    <h2 class="section-title reveal">PLAYER <span class="grad-text">REVIEWS</span></h2>
+    <div class="reviews-grid">
+      <div class="review reveal"><div class="stars">★★★★★</div><p>"Diamonds came in under 5 minutes. Trusted shop for real!"</p><strong>— Kasun P.</strong></div>
+      <div class="review reveal"><div class="stars">★★★★★</div><p>"Best prices in LKR I've found. Support replied instantly on WhatsApp."</p><strong>— Nadeesha R.</strong></div>
+      <div class="review reveal"><div class="stars">★★★★★</div><p>"Ordered 2200 pack twice, both times smooth and fast."</p><strong>— Sahan M.</strong></div>
+    </div>
+  </section>
+
+  <!-- ==================== FAQ ==================== -->
+  <section class="section" id="faq">
+    <h2 class="section-title reveal">FREQUENTLY ASKED <span class="grad-text">QUESTIONS</span></h2>
+    <div class="faq-list" id="faqList">
+      <details class="faq-item reveal"><summary>How long does delivery take?</summary><p>Usually 5–15 minutes after payment verification. During peak events it may take up to 1 hour.</p></details>
+      <details class="faq-item reveal"><summary>Do you need my Free Fire password?</summary><p>No! We only need your Player ID. Never share your password with anyone.</p></details>
+      <details class="faq-item reveal"><summary>Which payment methods do you accept?</summary><p>Bank transfer now — card payments via a secure gateway coming soon.</p></details>
+      <details class="faq-item reveal"><summary>My diamonds didn't arrive. What now?</summary><p>Message us on WhatsApp with your Order ID and receipt. We'll fix it right away.</p></details>
+    </div>
+  </section>
+
+  <!-- ==================== ABOUT & CONTACT ==================== -->
+  <section class="section" id="about">
+    <h2 class="section-title reveal">ABOUT <span class="grad-text">CHATHUTOPUP</span></h2>
+    <div class="about-card reveal">
+      <p>ChathuTopup is a Sri Lankan gaming top-up service run by players, for players. Since day one our mission has been simple: <strong>fast diamonds, fair prices, zero risk.</strong> Thousands of Free Fire players trust us every week.</p>
+    </div>
+  </section>
+
+  <section class="section" id="contact">
+    <h2 class="section-title reveal">CONTACT <span class="grad-text">US</span></h2>
+    <div class="contact-grid">
+      <div class="contact-card reveal"><h3>WhatsApp</h3><p>+94 7X XXX XXXX</p><p class="muted">Fastest response</p></div>
+      <div class="contact-card reveal"><h3>Email</h3><p>support@chathutopup.lk</p><p class="muted">Replies within 24h</p></div>
+      <div class="contact-card reveal"><h3>Hours</h3><p>Open 24 / 7</p><p class="muted">Yes, really 😄</p></div>
+    </div>
+  </section>
+
+  <!-- ==================== FOOTER ==================== -->
+  <footer class="footer">
+    <p>© 2026 ChathuTopup. All rights reserved.</p>
+    <p class="muted">Free Fire is a trademark of Garena. ChathuTopup is an independent top-up service.</p>
+    <p class="muted"><a href="admin.html">Admin Login</a></p>
+  </footer>
+
+  <!-- Floating WhatsApp support button -->
+  <a class="whatsapp-float" href="https://wa.me/947XXXXXXXX" target="_blank" rel="noopener" aria-label="Chat on WhatsApp">
+    <svg viewBox="0 0 32 32" width="28" height="28" aria-hidden="true"><path fill="#fff" d="M16 3C9.4 3 4 8.4 4 15c0 2.6.8 5 2.2 7L4 29l7.2-2.1c1.9 1 4 1.6 6.2 1.6 6.6 0 12-5.4 12-12S22.6 3 16 3zm0 21.5c-1.9 0-3.7-.5-5.3-1.5l-.4-.2-4.2 1.2 1.2-4.1-.3-.4c-1.1-1.7-1.7-3.7-1.7-5.7C5.3 9.5 10.2 4.5 16 4.5S26.7 9.5 26.7 15 21.8 24.5 16 24.5zm5.4-7.3c-.3-.2-1.8-.9-2-1-.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.2-.2.2-.3.2-.6.1-.3-.2-1.3-.5-2.5-1.6-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6l.5-.6c.1-.2.2-.3.3-.5.1-.2 0-.4 0-.6-.1-.2-.7-1.7-1-2.3-.3-.6-.5-.5-.7-.6h-.6c-.2 0-.6.1-.9.4-.3.3-1.1 1.1-1.1 2.7s1.2 3.1 1.3 3.3c.2.2 2.3 3.5 5.5 4.9.8.3 1.4.5 1.9.7.8.2 1.5.2 2 .1.6-.1 1.8-.7 2-1.4.3-.7.3-1.3.2-1.5-.1-.1-.3-.2-.6-.3z"/></svg>
+  </a>
+
+  <!-- Toast notifications -->
+  <div class="toast" id="toast" role="status"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
